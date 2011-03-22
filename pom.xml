@@ -1,10 +1,9 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <artifactId>flixel-primer</artifactId>
-  <groupId>net.jangaroo.flash</groupId>
-  <version>0.8.5-SNAPSHOT</version>
+  <groupId>net.jangaroo.flash.flixel</groupId>
+  <version>0.8.5.1-SNAPSHOT</version>
 
   <packaging>war</packaging>
 
@@ -13,19 +12,23 @@
     Jangaroo port of the Flixel Primer project by CreativeApplications.NET.
   </description>
   <url>http://www.creativeapplications.net/flash/flixel-2-tutorial-flash-tutorials-games/</url>
-  
+
   <developers>
     <developer>
       <name>Andreas Zecher</name>
       <organization>Andreas Zecher</organization>
       <organizationUrl>http://www.pixelate.de</organizationUrl>
+      <roles>
+        <role>developer</role>
+      </roles>
     </developer>
+
     <developer>
       <name>Frank Wienberg</name>
       <organization>Jangaroo</organization>
       <organizationUrl>http://www.jangaroo.net</organizationUrl>
       <roles>
-        <role>Jangarooificator</role>
+        <role>jangarooificator</role>
       </roles>
     </developer>
   </developers>
@@ -37,9 +40,17 @@
     <jetty_version>7.2.2.v20101205</jetty_version>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>jangaroo</id>
+      <name>Jangaroo repository</name>
+      <url>http://repo.jangaroo.net/maven2</url>
+    </repository>
+  </repositories>
+
   <build>
     <sourceDirectory>src</sourceDirectory>
-	<outputDirectory>target/jangaroo-output</outputDirectory>
+    <outputDirectory>target/jangaroo-output</outputDirectory>
 
     <resources>
       <resource>
@@ -55,11 +66,13 @@
         <directory>webapp</directory>
       </resource>
     </resources>
+
     <plugins>
       <!-- Use the Jangaroo compiler in "war mode". -->
       <plugin>
         <groupId>net.jangaroo</groupId>
         <artifactId>jangaroo-maven-plugin</artifactId>
+        <!-- Register the packaging type "jangaroo". -->
         <extensions>true</extensions>
         <version>${jangaroo_version}</version>
         <executions>
@@ -78,16 +91,6 @@
         </executions>
       </plugin>
 
-      <!-- Needed for Maven not to fail because we have no web.xml. -->
-      <plugin>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>2.1.1</version>
-        <configuration>
-          <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
-          <failOnMissingWebXml>false</failOnMissingWebXml>
-        </configuration>
-      </plugin>
-
       <plugin>
         <groupId>org.mortbay.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>
@@ -101,6 +104,17 @@
           <stopPort>8081</stopPort>
         </configuration>
       </plugin>
+      
+      <!-- Needed for Maven not to fail because we have no web.xml. -->
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <version>2.1.1</version>
+        <configuration>
+          <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
     </plugins>
   </build>
 
@@ -114,9 +128,9 @@
     </dependency>
 
     <dependency>
-      <groupId>net.jangaroo.flash.examples</groupId>
+      <groupId>net.jangaroo.flash.flixel</groupId>
       <artifactId>flixel</artifactId>
-      <version>0.8.5-SNAPSHOT</version>
+      <version>0.8.5.1</version>
       <type>jangaroo</type>
     </dependency>
   </dependencies>
